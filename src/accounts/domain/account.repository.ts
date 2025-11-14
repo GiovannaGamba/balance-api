@@ -1,5 +1,7 @@
 import { AccountEntity } from './account.entity';
 
+export const ACCOUNTS_REPOSITORY = Symbol('ACCOUNTS_REPOSITORY');
+
 export interface AccountsRepository {
   findById(id: string): AccountEntity | undefined;
   save(account: AccountEntity): void;

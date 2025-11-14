@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { ACCOUNTS_REPOSITORY } from '../domain/account.repository';
 import type { AccountsRepository } from '../domain/account.repository';
-import { AccountEntity } from '../domain/account.entity';
-import {
+import type { AccountEntity } from '../domain/account.entity';
+import type {
   BalanceResponse,
   DepositResponse,
   TransferResponse,
@@ -9,8 +10,11 @@ import {
 } from '../domain/balance.response';
 
 @Injectable()
-export class AccountsService {x
-  constructor(private readonly accountsRepository: AccountsRepository) {}
+export class AccountsService {
+  constructor(
+    @Inject(ACCOUNTS_REPOSITORY)
+    private readonly accountsRepository: AccountsRepository,
+  ) {}
 
   getBalance(accountId: string): BalanceResponse | null {
     const account = this.accountsRepository.findById(accountId);
